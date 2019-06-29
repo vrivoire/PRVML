@@ -20,7 +20,6 @@ import javax.validation.ConstraintViolation;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.springframework.beans.BeansException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -41,15 +40,21 @@ public class Main {
     private static BookingService bookingService = null;
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext context = SpringApplication.run(Main.class, args);
-        init(context);
+        try {
+            ConfigurableApplicationContext context = SpringApplication.run(Main.class, args);
+            init(context);
 
-        LOG.info("Server started.");
-        LOG.info("You may go to the following URL: http://127.0.0.1:8080");
-        LOG.info("H2 console URL: http://127.0.0.1:8080/h2-console  JDBC URL: jdbc:h2:mem:prvml or jdbc:h2:./database/prvml.db ((user: sa)");
+            LOG.info("Server started.");
+            LOG.info("You may go to the following URL: http://127.0.0.1:8080");
+            LOG.info("H2 console URL: http://127.0.0.1:8080/h2-console  JDBC URL: jdbc:h2:mem:prvml or jdbc:h2:./database/prvml.db ((user: sa)");
+            LOG.info("---------------------------------------------");
+        } catch (Exception ex) {
+            LOG.error(ex.getMessage(), ex);
+            System.exit(-1);
+        }
     }
 
-    private static void init(ConfigurableApplicationContext context) throws BeansException {
+    public static void init(ConfigurableApplicationContext context) throws Exception {
 
         try {
             clinicRepository = context.getBean(ClinicRepository.class);
@@ -104,6 +109,7 @@ public class Main {
             showData(clinic, professional1, professional2, patient);
         } catch (Exception ex) {
             LOG.error("Failed to create some data.", ex);
+            throw ex;
         }
     }
 
