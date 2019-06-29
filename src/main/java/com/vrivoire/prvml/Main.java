@@ -51,56 +51,60 @@ public class Main {
 
     private static void init(ConfigurableApplicationContext context) throws BeansException {
 
-        clinicRepository = context.getBean(ClinicRepository.class);
-        Clinic clinic = new Clinic("Clinique Auteuil");
-        clinicRepository.saveAndFlush(clinic);
+        try {
+            clinicRepository = context.getBean(ClinicRepository.class);
+            Clinic clinic = new Clinic("Clinique Auteuil");
+            clinicRepository.saveAndFlush(clinic);
 
-        professionalRepository = context.getBean(ProfessionalRepository.class);
-        Professional professional1 = new Professional("Lucie", "Bazinet", clinic);
-        Professional professional2 = new Professional("Claude", "Meunier", clinic);
+            professionalRepository = context.getBean(ProfessionalRepository.class);
+            Professional professional1 = new Professional("Lucie", "Bazinet", clinic);
+            Professional professional2 = new Professional("Claude", "Meunier", clinic);
 
-        availabilityRepository = context.getBean(AvailabilityRepository.class);
-        Availability availability = new Availability(Timestamp.valueOf("2019-07-01 09:00:00"), Timestamp.valueOf("2019-07-01 09:30:00"));
-        availabilityRepository.saveAndFlush(availability);
-        professional1.addAvailability(availability);
+            availabilityRepository = context.getBean(AvailabilityRepository.class);
+            Availability availability = new Availability(Timestamp.valueOf("2019-07-01 09:00:00"), Timestamp.valueOf("2019-07-01 09:30:00"));
+            availabilityRepository.saveAndFlush(availability);
+            professional1.addAvailability(availability);
 
-        availability = new Availability(Timestamp.valueOf("2019-07-03 14:00:00"), Timestamp.valueOf("2019-07-03 14:45:00"));
-        availabilityRepository.saveAndFlush(availability);
-        professional1.addAvailability(availability);
+            availability = new Availability(Timestamp.valueOf("2019-07-03 14:00:00"), Timestamp.valueOf("2019-07-03 14:45:00"));
+            availabilityRepository.saveAndFlush(availability);
+            professional1.addAvailability(availability);
 
-        availabilityRepository = context.getBean(AvailabilityRepository.class);
-        availability = new Availability(Timestamp.valueOf("2019-07-02 10:30:00"), Timestamp.valueOf("2019-07-02 11:45:00"));
-        availabilityRepository.saveAndFlush(availability);
-        professional2.addAvailability(availability);
+            availabilityRepository = context.getBean(AvailabilityRepository.class);
+            availability = new Availability(Timestamp.valueOf("2019-07-02 10:30:00"), Timestamp.valueOf("2019-07-02 11:45:00"));
+            availabilityRepository.saveAndFlush(availability);
+            professional2.addAvailability(availability);
 
-        availability = new Availability(Timestamp.valueOf("2019-07-01 09:00:00"), Timestamp.valueOf("2019-07-01 10:00:00"));
-        availabilityRepository.saveAndFlush(availability);
-        professional2.addAvailability(availability);
+            availability = new Availability(Timestamp.valueOf("2019-07-01 09:00:00"), Timestamp.valueOf("2019-07-01 10:00:00"));
+            availabilityRepository.saveAndFlush(availability);
+            professional2.addAvailability(availability);
+            professionalRepository.saveAndFlush(professional2);
 
-        patientRepository = context.getBean(PatientRepository.class);
-        Patient patient = new Patient("Vincent", "Rivoire", clinic);
+            patientRepository = context.getBean(PatientRepository.class);
+            Patient patient = new Patient("Vincent", "Rivoire", clinic);
+            patientRepository.saveAndFlush(patient);
 
-        appointmentRepository = context.getBean(AppointmentRepository.class);
-        Appointment appointment = new Appointment(Timestamp.valueOf("2019-07-10 09:00:00"), Timestamp.valueOf("2019-07-10 09:30:00"));
-        appointmentRepository.saveAndFlush(appointment);
-        patient.addAppointment(appointment);
-        professional1.addAppointment(appointment);
-        patientRepository.saveAndFlush(patient);
+            appointmentRepository = context.getBean(AppointmentRepository.class);
+            Appointment appointment = new Appointment(Timestamp.valueOf("2019-07-10 09:00:00"), Timestamp.valueOf("2019-07-10 09:30:00"));
+            appointmentRepository.saveAndFlush(appointment);
+            patient.addAppointment(appointment);
+            patientRepository.saveAndFlush(patient);
+            professional1.addAppointment(appointment);
+            professionalRepository.saveAndFlush(professional1);
 
-        professionalRepository.saveAndFlush(professional1);
-        professionalRepository.saveAndFlush(professional2);
+            bookingService = context.getBean(BookingService.class);
+            availability = new Availability(Timestamp.valueOf("2019-07-11 09:00:00"), Timestamp.valueOf("2019-07-11 09:30:00"));
+            availabilityRepository.saveAndFlush(availability);
+            professional2.addAvailability(availability);
+            professionalRepository.saveAndFlush(professional2);
+            Set<ConstraintViolation<Object>> set = bookingService.addAppointment(availability.getId(), professional2.getId(), patient.getId());
+            if (set == null || set.isEmpty()) {
+                LOG.info(set);
+            }
 
-        bookingService = context.getBean(BookingService.class);
-        availability = new Availability(Timestamp.valueOf("2019-07-11 09:00:00"), Timestamp.valueOf("2019-07-11 09:30:00"));
-        availabilityRepository.saveAndFlush(availability);
-        professional2.addAvailability(availability);
-        professionalRepository.saveAndFlush(professional2);
-        Set<ConstraintViolation<Object>> set = bookingService.addAppointment(availability.getId(), professional2.getId(), patient.getId());
-        if (set == null || set.isEmpty()) {
-            LOG.info(set);
+            showData(clinic, professional1, professional2, patient);
+        } catch (Exception ex) {
+            LOG.error("Failed to create some data.", ex);
         }
-
-        showData(clinic, professional1, professional2, patient);
     }
 
     public static ClinicRepository getClinicRepository() {
@@ -124,13 +128,15 @@ public class Main {
     }
 
     private static void showData(Clinic clinic, Professional professional1, Professional professional2, Patient patient) {
+        List<Availability> availabilities = availabilityRepository.findAll(new Sort(Direction.DESC, "startTime"));
+        List<Appointment> appointments = appointmentRepository.findAll(new Sort(Direction.DESC, "startTime"));
+        LOG.info("---------------------------------------------");
         LOG.info(clinic);
         LOG.info(professional1);
         LOG.info(professional2);
         LOG.info(patient);
-        List<Availability> availabilities = availabilityRepository.findAll(new Sort(Direction.DESC, "startTime"));
         LOG.info(availabilities);
-        List<Appointment> appointments = appointmentRepository.findAll(new Sort(Direction.DESC, "startTime"));
         LOG.info(appointments);
+        LOG.info("---------------------------------------------");
     }
 }

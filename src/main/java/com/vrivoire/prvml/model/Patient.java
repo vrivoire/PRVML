@@ -78,8 +78,11 @@ public class Patient implements Comparable<Patient>, Serializable {
         this.appointments = appointments;
     }
 
-    public void addAppointment(Appointment appointment) {
-        this.appointments.add(appointment);
+    public void addAppointment(Appointment appointment) throws Exception {
+        if (appointments.contains(appointment)) {
+            throw new Exception("The time slot is already taken for: " + appointment + " and " + this);
+        }
+        appointments.add(appointment);
     }
 
     public Long getId() {
@@ -153,7 +156,8 @@ public class Patient implements Comparable<Patient>, Serializable {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Patient [");
-        builder.append("firstName=").append(firstName);
+        builder.append("id=").append(id);
+        builder.append(", firstName=").append(firstName);
         builder.append(", lastName=").append(lastName);
         builder.append(", uniqueId=").append(uniqueId);
         builder.append(", clinic=").append(clinic);

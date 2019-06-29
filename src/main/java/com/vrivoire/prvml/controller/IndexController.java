@@ -71,12 +71,17 @@ public class IndexController {
             @RequestParam(value = "professionalId", required = true) Long professionalId,
             @RequestParam(value = "patientId", required = true) Long patientId) {
 
-        Set<ConstraintViolation<Object>> set = bookingService.addAppointment(availabilityId, professionalId, patientId);
+        try {
+            Set<ConstraintViolation<Object>> set = bookingService.addAppointment(availabilityId, professionalId, patientId);
 
-        if (set == null || set.isEmpty()) {
-            LOG.info("Appointment created for patient id: " + patientId);
-            return new RedirectView("/", true);
-        } else {
+            if (set == null || set.isEmpty()) {
+                LOG.info("Appointment created for patient id: " + patientId);
+                return new RedirectView("/", true);
+            } else {
+                return new RedirectView("/error", true);
+            }
+        } catch (Exception ex) {
+            LOG.error("Could not add an appointement", ex);
             return new RedirectView("/error", true);
         }
     }

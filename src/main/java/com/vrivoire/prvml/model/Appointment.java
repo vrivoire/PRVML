@@ -62,7 +62,8 @@ public class Appointment implements Comparable<Appointment>, Serializable {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Appointment [");
-        builder.append("endTime=").append(endTime);
+        builder.append("id=").append(id);
+        builder.append(", endTime=").append(endTime);
         builder.append(", startTime=").append(startTime);
         builder.append("]");
         return builder.toString();

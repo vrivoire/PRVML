@@ -97,7 +97,10 @@ public class Professional implements Comparable<Professional>, Serializable {
         this.appointments = appointments;
     }
 
-    public void addAppointment(Appointment appointment) {
+    public void addAppointment(Appointment appointment) throws Exception {
+        if (appointments.contains(appointment)) {
+            throw new Exception("The time slot is already taken for: " + appointment + " and " + this);
+        }
         appointments.add(appointment);
     }
 
@@ -109,7 +112,10 @@ public class Professional implements Comparable<Professional>, Serializable {
         this.availabilities = availabilities;
     }
 
-    public void addAvailability(Availability availability) {
+    public void addAvailability(Availability availability) throws Exception {
+        if (availabilities.contains(availability)) {
+            throw new Exception("The time slot is already taken for: " + availabilities + " and " + this);
+        }
         availabilities.add(availability);
     }
 
@@ -172,6 +178,7 @@ public class Professional implements Comparable<Professional>, Serializable {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Professional [");
+        builder.append("id=").append(id);
         builder.append(", firstName=").append(firstName);
         builder.append(", lastName=").append(lastName);
         builder.append(", uniqueId=").append(uniqueId);

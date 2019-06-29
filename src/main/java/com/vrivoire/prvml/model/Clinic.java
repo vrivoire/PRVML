@@ -56,7 +56,8 @@ public class Clinic implements Comparable<Clinic>, Serializable {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Clinic [");
-        builder.append("name=").append(name);
+        builder.append("id=").append(id);
+        builder.append(", name=").append(name);
         builder.append("]");
         return builder.toString();
     }

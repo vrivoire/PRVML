@@ -95,7 +95,8 @@ public class Availability implements Comparable<Availability>, Serializable {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Availability [");
-        builder.append("endTime=").append(endTime);
+        builder.append("id=").append(id);
+        builder.append(", endTime=").append(endTime);
         builder.append(", startTime=").append(startTime);
         builder.append("]");
         return builder.toString();
