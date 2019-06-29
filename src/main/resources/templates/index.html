@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+        <title>Prise de Rendez-Vous Médical en Ligne</title>
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+        <link rel="stylesheet" href="basictable-master/basictable.css"/>
+        <link rel="stylesheet" href="basictable-master/demo/css/style.css"/>
+        <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script type="text/javascript" src="basictable-master/jquery.basictable.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+        <script type="text/javascript" src="prvml.js"></script>
+    </head>
+    <body>
+        <div id="page">
+            <h1>Prise de Rendez-Vous Médical en Ligne.</h1>
+            <h2 id='patientName'></h2>
+            <button class="ui-button ui-widget ui-corner-all" id='add-button'>Prendre un rendez-vous</button>
+            <div id="feedback"></div>
+            <br/>
+
+            <form id="add_form" method="post" action="/addAppointment" hidden="">
+                <label for="sel_professional">Professional</label>
+                <select id="sel_professional">
+                    <option value="0">- Sélectionner -</option>
+                </select>
+                <br/>
+
+                <label for="sel_availabilities">Disponibilitées</label>
+                <select id="sel_availabilities">
+                    <option value="0">- Sélectionner -</option>
+                </select>
+                <br/>
+
+                <button class="ui-button ui-widget ui-corner-all" id='cancel-button' type="button" value="Cancel">Annuler</button>
+                <button class="ui-button ui-widget ui-corner-all" id='submit' type="submit" value="Submit">Ajouter</button>
+            </form>
+
+            <table id="table">
+                <tr>
+                    <th>Début</th>
+                    <th>Fin</th>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
