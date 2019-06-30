@@ -1,12 +1,14 @@
-Note: les tables Appointment and Availability aurraient pu ¸être une seule table avec un booleen mais j'ai suivit l'énoncé au plus près...
+Le projet est à l'URL suivate: https://github.com/vrivoire/PRVML
 
-In the project directory (PRVML-master):
+Note: les tables Appointment and Availability aurraient pu être une seule table avec un Booléen mais j'ai suivit l'énoncé au plus près...
 
-The database graph picture is in the file Database "Grapg.png"
+In the project directory (PRVML):
+
+The database graph picture is in the file Database "Database Graph.png"
 The database structure SQL is in the file "prvml.db.sql"
 
 Build the project:
-mvn cleam install
+mvn clean install
 
 Run the project:
 java -jar target/PRVML-1.0.jar
