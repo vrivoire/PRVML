@@ -66,20 +66,20 @@ public class Main {
             Professional professional2 = new Professional("Claude", "Meunier", clinic);
 
             availabilityRepository = context.getBean(AvailabilityRepository.class);
-            Availability availability = new Availability(Timestamp.valueOf("2019-09-01 09:00:00"), Timestamp.valueOf("2019-09-01 09:30:00"));
+            Availability availability = new Availability(Timestamp.valueOf("2020-09-01 09:00:00"), Timestamp.valueOf("2020-09-01 09:30:00"));
             availabilityRepository.saveAndFlush(availability);
             professional1.addAvailability(availability);
 
-            availability = new Availability(Timestamp.valueOf("2019-09-02 14:00:00"), Timestamp.valueOf("2019-09-02 14:45:00"));
+            availability = new Availability(Timestamp.valueOf("2020-09-02 14:00:00"), Timestamp.valueOf("2020-09-02 14:45:00"));
             availabilityRepository.saveAndFlush(availability);
             professional1.addAvailability(availability);
 
             availabilityRepository = context.getBean(AvailabilityRepository.class);
-            availability = new Availability(Timestamp.valueOf("2019-09-03 10:30:00"), Timestamp.valueOf("2019-09-03 11:45:00"));
+            availability = new Availability(Timestamp.valueOf("2020-09-03 10:30:00"), Timestamp.valueOf("2020-09-03 11:45:00"));
             availabilityRepository.saveAndFlush(availability);
             professional2.addAvailability(availability);
 
-            availability = new Availability(Timestamp.valueOf("2019-09-04 09:00:00"), Timestamp.valueOf("2019-09-04 10:00:00"));
+            availability = new Availability(Timestamp.valueOf("2020-09-04 09:00:00"), Timestamp.valueOf("2020-09-04 10:00:00"));
             availabilityRepository.saveAndFlush(availability);
             professional2.addAvailability(availability);
             professionalRepository.saveAndFlush(professional2);
@@ -89,7 +89,7 @@ public class Main {
             patientRepository.saveAndFlush(patient);
 
             appointmentRepository = context.getBean(AppointmentRepository.class);
-            Appointment appointment = new Appointment(Timestamp.valueOf("2019-09-10 09:00:00"), Timestamp.valueOf("2019-09-10 09:30:00"));
+            Appointment appointment = new Appointment(Timestamp.valueOf("2020-09-10 09:00:00"), Timestamp.valueOf("2020-09-10 09:30:00"));
             appointmentRepository.saveAndFlush(appointment);
             patient.addAppointment(appointment);
             patientRepository.saveAndFlush(patient);
@@ -97,7 +97,7 @@ public class Main {
             professionalRepository.saveAndFlush(professional1);
 
             bookingService = context.getBean(BookingService.class);
-            availability = new Availability(Timestamp.valueOf("2019-07-11 09:00:00"), Timestamp.valueOf("2019-07-11 09:30:00"));
+            availability = new Availability(Timestamp.valueOf("2020-07-11 09:00:00"), Timestamp.valueOf("2020-07-11 09:30:00"));
             availabilityRepository.saveAndFlush(availability);
             professional2.addAvailability(availability);
             professionalRepository.saveAndFlush(professional2);

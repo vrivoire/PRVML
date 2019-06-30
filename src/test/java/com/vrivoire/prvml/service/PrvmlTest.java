@@ -67,12 +67,12 @@ public class PrvmlTest {
     public void setUp() {
         clinic = new Clinic("Le gros bobo");
         patient = new Patient("Jean", "Robin", clinic);
-        appointment1 = new Appointment(Timestamp.valueOf("2019-07-10 09:00:00"), Timestamp.valueOf("2019-07-10 09:30:00"));
-        appointment2 = new Appointment(Timestamp.valueOf("2019-07-10 09:15:00"), Timestamp.valueOf("2019-07-10 09:30:00"));
-        appointment3 = new Appointment(Timestamp.valueOf("2019-07-11 09:15:00"), Timestamp.valueOf("2019-07-11 09:30:00"));
+        appointment1 = new Appointment(Timestamp.valueOf("2020-07-10 09:00:00"), Timestamp.valueOf("2020-07-10 09:30:00"));
+        appointment2 = new Appointment(Timestamp.valueOf("2020-07-10 09:15:00"), Timestamp.valueOf("2020-07-10 09:30:00"));
+        appointment3 = new Appointment(Timestamp.valueOf("2020-07-11 09:15:00"), Timestamp.valueOf("2020-07-11 09:30:00"));
         appointment4 = new Appointment(Timestamp.valueOf("2018-07-11 09:15:00"), Timestamp.valueOf("2018-07-11 09:30:00"));
         professional = new Professional("Hubert", "Salazard", clinic);
-        availability = new Availability(Timestamp.valueOf("2019-07-11 09:00:00"), Timestamp.valueOf("2019-07-11 09:30:00"));
+        availability = new Availability(Timestamp.valueOf("2020-07-11 09:00:00"), Timestamp.valueOf("2020-07-11 09:30:00"));
     }
 
     @Test
