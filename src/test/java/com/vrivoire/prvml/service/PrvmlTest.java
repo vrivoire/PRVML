@@ -43,6 +43,7 @@ public class PrvmlTest {
     private Appointment appointment1;
     private Appointment appointment2;
     private Appointment appointment3;
+    private Appointment appointment4;
 
     @Autowired
     PatientRepository patientRepository;
@@ -69,8 +70,23 @@ public class PrvmlTest {
         appointment1 = new Appointment(Timestamp.valueOf("2019-07-10 09:00:00"), Timestamp.valueOf("2019-07-10 09:30:00"));
         appointment2 = new Appointment(Timestamp.valueOf("2019-07-10 09:15:00"), Timestamp.valueOf("2019-07-10 09:30:00"));
         appointment3 = new Appointment(Timestamp.valueOf("2019-07-11 09:15:00"), Timestamp.valueOf("2019-07-11 09:30:00"));
+        appointment4 = new Appointment(Timestamp.valueOf("2018-07-11 09:15:00"), Timestamp.valueOf("2018-07-11 09:30:00"));
         professional = new Professional("Hubert", "Salazard", clinic);
         availability = new Availability(Timestamp.valueOf("2019-07-11 09:00:00"), Timestamp.valueOf("2019-07-11 09:30:00"));
+    }
+
+    @Test
+    public void validatePast() {
+
+        try {
+            patient.addAppointment(appointment4);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            Assert.assertNotNull(ex);
+            return;
+
+        }
+        Assert.fail();
     }
 
     @Test

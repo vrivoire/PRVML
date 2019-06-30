@@ -1,8 +1,6 @@
 package com.vrivoire.prvml.model;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +15,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "appointment")
-public class Appointment implements Comparable<Appointment>, Serializable {
+public class Appointment extends BookingBase {
 
     private static final long serialVersionUID = 8032335199037289491L;
 
@@ -42,68 +40,28 @@ public class Appointment implements Comparable<Appointment>, Serializable {
         this.endTime = endTime;
     }
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public Timestamp getStartTime() {
         return startTime;
     }
 
+    @Override
     public void setStartTime(Timestamp startTime) {
         this.startTime = startTime;
     }
 
+    @Override
     public Timestamp getEndTime() {
         return endTime;
     }
 
+    @Override
     public void setEndTime(Timestamp endTime) {
         this.endTime = endTime;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Appointment [");
-        builder.append("id=").append(id);
-        builder.append(", endTime=").append(endTime);
-        builder.append(", startTime=").append(startTime);
-        builder.append("]");
-        return builder.toString();
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 79 * hash + Objects.hashCode(this.startTime);
-        hash = 79 * hash + Objects.hashCode(this.endTime);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Appointment other = (Appointment) obj;
-        if (!Objects.equals(this.startTime, other.startTime)) {
-            return false;
-        }
-        if (!Objects.equals(this.endTime, other.endTime)) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public int compareTo(Appointment o) {
-        return startTime.compareTo(o.startTime);
     }
 }

@@ -102,11 +102,14 @@ public class Professional implements Comparable<Professional>, Serializable {
     }
 
     public void addAppointment(Appointment appointment) throws Exception {
+        if (Validator.isInThePast(appointment)) {
+            throw new Exception("The Time slot is in the past for: " + appointment + " and " + this);
+        }
         if (appointments.contains(appointment)) {
             throw new Exception("The time slot is already taken for: " + appointment + " and " + this);
         }
         for (Appointment appointment1 : appointments) {
-            if (Validator.isOverLaped(appointment.getStartTime(), appointment.getEndTime(), appointment1.getStartTime(), appointment1.getEndTime())) {
+            if (Validator.isOverLaped(appointment, appointment1)) {
                 throw new Exception("There is an overlap time slot for: " + appointment + " and " + this);
             }
         }
@@ -123,11 +126,14 @@ public class Professional implements Comparable<Professional>, Serializable {
     }
 
     public void addAvailability(Availability availability) throws Exception {
+        if (Validator.isInThePast(availability)) {
+            throw new Exception("The Time slot is in the past for: " + availability + " and " + this);
+        }
         if (availabilities.contains(availability)) {
             throw new Exception("The time slot is already taken for: " + availability + " and " + this);
         }
         for (Availability availability1 : availabilities) {
-            if (Validator.isOverLaped(availability.getStartTime(), availability.getEndTime(), availability1.getStartTime(), availability1.getEndTime())) {
+            if (Validator.isOverLaped(availability, availability1)) {
                 throw new Exception("There is an overlap time slot for: " + availability + " and " + this);
             }
         }

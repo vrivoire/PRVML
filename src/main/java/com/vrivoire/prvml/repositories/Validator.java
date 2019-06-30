@@ -1,12 +1,12 @@
 package com.vrivoire.prvml.repositories;
 
-import java.sql.Timestamp;
+import com.vrivoire.prvml.model.Booking;
+
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.ValidatorFactory;
-import javax.validation.constraints.NotNull;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -20,9 +20,13 @@ public class Validator {
 
     private static final Logger LOG = LogManager.getLogger(Validator.class);
 
-    public static boolean isOverLaped(@NotNull Timestamp start1, @NotNull Timestamp end1, @NotNull Timestamp start2, @NotNull Timestamp end2) {
-        Interval interval1 = new Interval(start1.getTime(), end1.getTime());
-        Interval interval2 = new Interval(start2.getTime(), end2.getTime());
+    public static boolean isInThePast(Booking booking) {
+        return booking.getEndTime().getTime() < System.currentTimeMillis();
+    }
+
+    public static boolean isOverLaped(Booking booking1, Booking booking2) {
+        Interval interval1 = new Interval(booking1.getStartTime().getTime(), booking1.getEndTime().getTime());
+        Interval interval2 = new Interval(booking2.getStartTime().getTime(), booking2.getEndTime().getTime());
         return interval1.overlaps(interval2);
     }
 
