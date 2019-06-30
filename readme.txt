@@ -1,3 +1,5 @@
+Note: les tables Appointment and Availability aurraient pu ¸être une seule table avec un booleen mais j'ai suivit l'énoncé au plus près...
+
 In the project directory (PRVML-master):
 
 The database graph picture is in the file Database "Grapg.png"
@@ -10,9 +12,10 @@ Run the project:
 java -jar target/PRVML-1.0.jar
 
 Go to http://localhost:8080
-H2 console URL: http://127.0.0.1:8080/h2-console  JDBC URL: jdbc:h2:mem:prvml or jdbc:h2:./database/prvml.db ((user: sa)
+H2 console URL: http://127.0.0.1:8080/h2-console  JDBC URL: jdbc:h2:./database/prvml.db ((user: sa)
 
 
+Énoncé:
 
 Vous êtes en charge de développer l’API REST qui sert à supporter une application
 simplifiée de prise de rendez-vous médical en ligne. Après analyse, vous arrivez à la

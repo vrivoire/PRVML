@@ -43,12 +43,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     @Transactional
-    public Set<ConstraintViolation<Object>> bookAppointment(Long availabilityId, Long professionalId, Long patientId) throws Exception {
-
-        Patient patient = patientRepository.findById(patientId).get();
-        Professional professional = professionalRepository.findById(professionalId).get();
-        Availability availability = availabilityRepository.findById(availabilityId).get();
-
+    public Set<ConstraintViolation<Object>> bookAppointment(Availability availability, Professional professional, Patient patient) throws Exception {
         Appointment appointment = new Appointment(availability.getStartTime(), availability.getEndTime());
         Set<ConstraintViolation<Object>> validateAp = Validator.validate(appointment);
         if (!validateAp.isEmpty()) {
@@ -71,5 +66,16 @@ public class BookingServiceImpl implements BookingService {
         professionalRepository.saveAndFlush(professional);
 
         return null;
+
+    }
+
+    @Override
+    @Transactional
+    public Set<ConstraintViolation<Object>> bookAppointment(Long availabilityId, Long professionalId, Long patientId) throws Exception {
+
+        Patient patient = patientRepository.findById(patientId).get();
+        Professional professional = professionalRepository.findById(professionalId).get();
+        Availability availability = availabilityRepository.findById(availabilityId).get();
+        return bookAppointment(availability, professional, patient);
     }
 }

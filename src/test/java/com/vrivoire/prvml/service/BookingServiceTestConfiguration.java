@@ -42,4 +42,10 @@ public class BookingServiceTestConfiguration {
     public AvailabilityRepository availabilityRepository() {
         return Mockito.mock(AvailabilityRepository.class);
     }
+
+    @Bean
+    @Primary
+    public BookingService bookingService() {
+        return Mockito.mock(BookingService.class);
+    }
 }
