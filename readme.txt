@@ -2,19 +2,22 @@ Le projet est à l'URL suivate: https://github.com/vrivoire/PRVML
 
 Note: les tables Appointment and Availability aurraient pu être une seule table avec un Booléen mais j'ai suivit l'énoncé au plus près...
 
-In the project directory (PRVML):
+Dans le répertoire du projet cloné (PRVML):
 
-The database graph picture is in the file Database "Database Graph.png"
-The database structure SQL is in the file "prvml.db.sql"
+L'image du graphe de la base de données se trouve dans le fichier "Database Graph.png"
+La structure de la base de données SQL est dans le fichier "prvml.db.sql"
 
-Build the project:
+Construire le projet:
 mvn clean install
 
-Run the project:
+Lancer le projet:
 java -jar target/PRVML-1.0.jar
 
-Go to http://localhost:8080
-H2 console URL: http://127.0.0.1:8080/h2-console  JDBC URL: jdbc:h2:./database/prvml.db ((user: sa)
+Dans un navigateur, allez à: http://localhost:8080
+La console H2 est à l'URL: http://127.0.0.1:8080/h2-console
+        JDBC_URL: jdbc:h2:./database/prvml.db
+        user: sa
+        password: <-- vide
 
 
 Énoncé:
