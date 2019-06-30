@@ -20,12 +20,11 @@
     <body>
         <div id="page">
             <h1>Prise de Rendez-Vous Médical en Ligne.</h1>
-            <h2 id='patientName'></h2>
+            <h3 id='patientName'></h3>
             <button class="ui-button ui-widget ui-corner-all" id='add-button'>Prendre un rendez-vous</button>
             <div id="feedback"></div>
             <br/>
-
-            <form id="add_form" method="post" action="/addAppointment" hidden="">
+            <form id="add_form" method="post" hidden="">
                 <label for="sel_professional">Professional</label>
                 <select id="sel_professional">
                     <option value="0">- Sélectionner -</option>
@@ -44,6 +43,7 @@
 
             <table id="table">
                 <tr>
+                    <th>Professionnel</th>
                     <th>Début</th>
                     <th>Fin</th>
                 </tr>

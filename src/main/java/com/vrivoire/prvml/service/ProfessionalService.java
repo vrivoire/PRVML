@@ -11,4 +11,6 @@ public interface ProfessionalService {
     Professional getProfessional(Long id);
 
     Professional findByUniqueId(String uniqueId);
+
+    public Professional getProfessionalForAppointment(Long appointementId);
 }

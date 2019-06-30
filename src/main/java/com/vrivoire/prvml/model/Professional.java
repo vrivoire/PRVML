@@ -1,7 +1,10 @@
 package com.vrivoire.prvml.model;
 
+import com.vrivoire.prvml.repositories.Validator;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -90,6 +93,7 @@ public class Professional implements Comparable<Professional>, Serializable {
     }
 
     public List<Appointment> getAppointments() {
+        Collections.sort(appointments);
         return appointments;
     }
 
@@ -101,10 +105,16 @@ public class Professional implements Comparable<Professional>, Serializable {
         if (appointments.contains(appointment)) {
             throw new Exception("The time slot is already taken for: " + appointment + " and " + this);
         }
+        for (Appointment appointment1 : appointments) {
+            if (Validator.isOverLaped(appointment.getStartTime(), appointment.getEndTime(), appointment1.getStartTime(), appointment1.getEndTime())) {
+                throw new Exception("There is an overlap time slot for: " + appointment + " and " + this);
+            }
+        }
         appointments.add(appointment);
     }
 
     public List<Availability> getAvailabilities() {
+        Collections.sort(availabilities);
         return availabilities;
     }
 
@@ -114,7 +124,12 @@ public class Professional implements Comparable<Professional>, Serializable {
 
     public void addAvailability(Availability availability) throws Exception {
         if (availabilities.contains(availability)) {
-            throw new Exception("The time slot is already taken for: " + availabilities + " and " + this);
+            throw new Exception("The time slot is already taken for: " + availability + " and " + this);
+        }
+        for (Availability availability1 : availabilities) {
+            if (Validator.isOverLaped(availability.getStartTime(), availability.getEndTime(), availability1.getStartTime(), availability1.getEndTime())) {
+                throw new Exception("There is an overlap time slot for: " + availability + " and " + this);
+            }
         }
         availabilities.add(availability);
     }

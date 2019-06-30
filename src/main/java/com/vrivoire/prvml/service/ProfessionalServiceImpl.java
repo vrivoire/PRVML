@@ -1,6 +1,8 @@
 package com.vrivoire.prvml.service;
 
+import com.vrivoire.prvml.model.Appointment;
 import com.vrivoire.prvml.model.Professional;
+import com.vrivoire.prvml.repositories.AppointmentRepository;
 import com.vrivoire.prvml.repositories.ProfessionalRepository;
 
 import java.util.List;
@@ -15,6 +17,8 @@ public class ProfessionalServiceImpl implements ProfessionalService {
 
     @Autowired
     private ProfessionalRepository professionalRepository;
+    @Autowired
+    private AppointmentRepository appointmentRepository;
 
     @Override
     public List<Professional> loadAll() {
@@ -35,5 +39,20 @@ public class ProfessionalServiceImpl implements ProfessionalService {
     public Professional findByUniqueId(String uniqueId) {
         Professional professional = professionalRepository.findByUniqueId(uniqueId);
         return professional;
+    }
+
+    @Override
+    public Professional getProfessionalForAppointment(Long appointementId) {
+        Appointment appointment = appointmentRepository.findById(appointementId).get();
+        if (appointment != null) {
+            List<Professional> professionals = professionalRepository.findAll();
+            for (Professional professional : professionals) {
+                List<Appointment> appointments = professional.getAppointments();
+                if (appointments.contains(appointment)) {
+                    return professional;
+                }
+            }
+        }
+        return null;
     }
 }

@@ -1,7 +1,10 @@
 package com.vrivoire.prvml.model;
 
+import com.vrivoire.prvml.repositories.Validator;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -71,6 +74,7 @@ public class Patient implements Comparable<Patient>, Serializable {
     }
 
     public List<Appointment> getAppointments() {
+        Collections.sort(appointments);
         return appointments;
     }
 
@@ -81,6 +85,11 @@ public class Patient implements Comparable<Patient>, Serializable {
     public void addAppointment(Appointment appointment) throws Exception {
         if (appointments.contains(appointment)) {
             throw new Exception("The time slot is already taken for: " + appointment + " and " + this);
+        }
+        for (Appointment appointment1 : appointments) {
+            if (Validator.isOverLaped(appointment.getStartTime(), appointment.getEndTime(), appointment1.getStartTime(), appointment1.getEndTime())) {
+                throw new Exception("There is an overlap time slot for: " + appointment + " and " + this);
+            }
         }
         appointments.add(appointment);
     }

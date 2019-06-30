@@ -27,31 +27,47 @@ $(document).ready(function () {
         tableWrapper: true
     });
 
-    $.post('/addAppointment',
-            {availabilityId: $("#sel_availabilities").val(),
-                professionalId: $('#sel_professional :selected').val(),
-                patientId: patient},
-            function (result, status, xhr) {
-                if (status === 'success') {
-                    $('#feedback').html("<h4>Le rendez-vous à été crée avec succès!</h4>");
-                } else {
-                    $('#feedback').html("<h4>Response</h4><pre>An error occured.</pre>");
-                    console.log("ERROR : ", xhr.responseText);
-                }
-            });
+    $('#submit').click(function () {
+        $.post('/bookAppointment',
+                {availabilityId: $("#sel_availabilities :selected").val(),
+                    professionalId: $('#sel_professional :selected').val(),
+                    patientId: patient.id},
+                function (result, status, xhr) {
+                    if (status === 'success') {
+                        $('#feedback').html("<h4>Le rendez-vous à été crée avec succès!</h4>");
+                    } else {
+                        $('#feedback').html("<h4>Response</h4><pre>An error occured.</pre>");
+                        console.log("ERROR : ", xhr.responseText);
+                    }
+                });
+    });
 
     $.get("/getPatient",
             {patientUniqueId: patientUniqueId},
-            function (patient, status, xhr) {
+            function (result, status, xhr) {
                 if (status === 'success') {
-                    this.patient = patient;
-                    $('#patientName').html(patient.displayName);
+                    patient = result;
+                    $('#patientName').html('Nom du patient: ' + patient.displayName);
                     for (var i = 0; i < patient.appointments.length; i++) {
                         var appointment = patient.appointments[i];
-                        $('<tr>').append(
-                                $('<td>').text(formatDate(new Date(appointment.startTime))),
-                                $('<td>').text(formatDate(new Date(appointment.endTime))),
-                                ).appendTo('#table');
+                        var displayName = 'Non trouvé';
+                        $.ajax({
+                            url: '/getProfessionalForAppointment',
+                            type: 'get',
+                            dataType: 'json',
+                            data: {appointementId: appointment.id},
+                            async: false,
+                            success: function (professional) {
+                                if (professional !== null || professional !== undefined) {
+                                    displayName = professional.displayName;
+                                }
+                                $('<tr>').append(
+                                        $('<td>').text(displayName),
+                                        $('<td>').text(formatDate(new Date(appointment.startTime))),
+                                        $('<td>').text(formatDate(new Date(appointment.endTime))),
+                                        ).appendTo('#table');
+                            }
+                        });
                     }
                 } else {
                     $('#feedback').html("<h4>Response</h4><pre>An error occured.</pre>");
@@ -60,7 +76,7 @@ $(document).ready(function () {
             });
 
     $('#cancel-button').click(function () {
-        $('#add_form').toggle();
+        $('#add_form').slideUp();
     });
 
     $('#add-button').click(function () {
@@ -80,13 +96,11 @@ $(document).ready(function () {
                 getAvailabilities();
             }
         });
-        $('#add_form').toggle();
+        $('#add_form').slideDown();
     });
-
     $("#sel_professional").click(function () {
         getAvailabilities();
     });
-
     function getAvailabilities() {
         var professionalId = $('#sel_professional :selected').val();
         $.ajax({
@@ -98,7 +112,6 @@ $(document).ready(function () {
                 $("#sel_availabilities").empty();
                 for (var i = 0; i < availabilities.length; i++) {
                     var availability = availabilities[i];
-                    console.log(availability);
                     $("#sel_availabilities").append("<option value='" + availability.id + "'> De " + formatDate(availability.startTime) + ' à ' + formatDate(availability.endTime) + "</option>");
                 }
             }

@@ -42,6 +42,10 @@ public class Appointment implements Comparable<Appointment>, Serializable {
         this.endTime = endTime;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public Timestamp getStartTime() {
         return startTime;
     }

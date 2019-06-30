@@ -9,6 +9,7 @@ import com.vrivoire.prvml.service.ProfessionalService;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -23,7 +24,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class IndexController {
@@ -50,6 +50,12 @@ public class IndexController {
         return ResponseEntity.ok(patient);
     }
 
+    @RequestMapping(value = "/getProfessionalForAppointment", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<Professional> getProfessionalForAppointment(@RequestParam(value = "appointementId", required = true) Long appointementId) {
+        Professional professional = professionalService.getProfessionalForAppointment(appointementId);
+        return ResponseEntity.ok(professional);
+    }
+
     @RequestMapping(value = "/getProfessionals", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<List<Professional>> getProfessionals() {
         List<Professional> professionals = professionalService.loadAll();
@@ -65,24 +71,24 @@ public class IndexController {
         return ResponseEntity.ok(availabilities);
     }
 
-    @RequestMapping(value = "/addAppointment", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public RedirectView addAppointment(
+    @RequestMapping(value = "/bookAppointment", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<Object> bookAppointment(
             @RequestParam(value = "availabilityId", required = true) Long availabilityId,
             @RequestParam(value = "professionalId", required = true) Long professionalId,
             @RequestParam(value = "patientId", required = true) Long patientId) {
-
         try {
-            Set<ConstraintViolation<Object>> set = bookingService.addAppointment(availabilityId, professionalId, patientId);
-
+            Set<ConstraintViolation<Object>> set = bookingService.bookAppointment(availabilityId, professionalId, patientId);
             if (set == null || set.isEmpty()) {
                 LOG.info("Appointment created for patient id: " + patientId);
-                return new RedirectView("/", true);
+                return ResponseEntity.ok("Appointment created");
             } else {
-                return new RedirectView("/error", true);
+                LOG.error(set);
+                return ResponseEntity.of(Optional.of(set));
             }
         } catch (Exception ex) {
             LOG.error("Could not add an appointement", ex);
-            return new RedirectView("/error", true);
+            return ResponseEntity.ok(ex.getMessage());
         }
+
     }
 }
