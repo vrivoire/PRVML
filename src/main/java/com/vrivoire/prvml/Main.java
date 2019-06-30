@@ -94,10 +94,6 @@ public class Main {
             patient.addAppointment(appointment);
             patientRepository.saveAndFlush(patient);
             professional1.addAppointment(appointment);
-            // time slot overlap
-//            appointment = new Appointment(Timestamp.valueOf("2019-07-10 09:15:00"), Timestamp.valueOf("2019-07-10 09:30:00"));
-//            appointmentRepository.saveAndFlush(appointment);
-//            professional1.addAppointment(appointment);
             professionalRepository.saveAndFlush(professional1);
 
             bookingService = context.getBean(BookingService.class);
