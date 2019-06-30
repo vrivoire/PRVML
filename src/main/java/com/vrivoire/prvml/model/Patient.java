@@ -1,7 +1,5 @@
 package com.vrivoire.prvml.model;
 
-import com.vrivoire.prvml.repositories.Validator;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,6 +23,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "patient")
+
 public class Patient implements Comparable<Patient>, Serializable {
 
     private static final long serialVersionUID = -5803551043783035609L;
@@ -83,17 +82,7 @@ public class Patient implements Comparable<Patient>, Serializable {
     }
 
     public void addAppointment(Appointment appointment) throws Exception {
-        if (Validator.isInThePast(appointment)) {
-            throw new Exception("The Time slot is in the past for: " + appointment + " and " + this);
-        }
-        if (appointments.contains(appointment)) {
-            throw new Exception("The time slot is already taken for: " + appointment + " and " + this);
-        }
-        for (Appointment appointment1 : appointments) {
-            if (Validator.isOverLaped(appointment, appointment1)) {
-                throw new Exception("There is an overlap time slot for: " + appointment + " and " + this);
-            }
-        }
+        Validator.validateBookings(appointment, appointments, this);
         appointments.add(appointment);
     }
 

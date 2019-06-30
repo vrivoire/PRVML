@@ -8,7 +8,7 @@ import com.vrivoire.prvml.repositories.AppointmentRepository;
 import com.vrivoire.prvml.repositories.AvailabilityRepository;
 import com.vrivoire.prvml.repositories.PatientRepository;
 import com.vrivoire.prvml.repositories.ProfessionalRepository;
-import com.vrivoire.prvml.repositories.Validator;
+import com.vrivoire.prvml.model.Validator;
 
 import java.util.Set;
 

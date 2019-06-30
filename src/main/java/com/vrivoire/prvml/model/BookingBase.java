@@ -1,18 +1,17 @@
 package com.vrivoire.prvml.model;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author Vincent
  */
-public abstract class BookingBase implements Booking, Comparable<BookingBase>, Serializable {
+public abstract class BookingBase implements Booking {
 
     private static final long serialVersionUID = 7451119007133245196L;
 
     @Override
-    public int compareTo(BookingBase o) {
+    public int compareTo(Booking o) {
         return getStartTime().compareTo(o.getStartTime());
     }
 
@@ -45,7 +44,7 @@ public abstract class BookingBase implements Booking, Comparable<BookingBase>, S
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append(this.getClass().getName()).append(" [");
+        builder.append(getClass().getSimpleName()).append(" [");
         builder.append("id=").append(getId());
         builder.append(", endTime=").append(getStartTime());
         builder.append(", startTime=").append(getEndTime());
