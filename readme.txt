@@ -11,8 +11,10 @@ Construire le projet:
 mvn clean install
 
 Lancer le projet:
-java -jar target/PRVML-1.0.jar
-
+	java -jar target/PRVML-1.0.jar
+	ou
+	mvn -q spring-boot:run   (en couleurs)
+	
 Dans un navigateur, allez à: http://localhost:8080
 La console H2 est à l'URL: http://127.0.0.1:8080/h2-console
         JDBC_URL: jdbc:h2:./database/prvml.db
