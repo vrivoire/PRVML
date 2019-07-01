@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.ValidationException;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -99,7 +100,7 @@ public class Professional implements Comparable<Professional>, Serializable {
         this.appointments = appointments;
     }
 
-    public void addAppointment(Appointment appointment) throws Exception {
+    public void addAppointment(Appointment appointment) throws ValidationException {
         Validator.validateBookings(appointment, appointments, this);
         appointments.add(appointment);
     }
@@ -113,7 +114,7 @@ public class Professional implements Comparable<Professional>, Serializable {
         this.availabilities = availabilities;
     }
 
-    public void addAvailability(Availability availability) throws Exception {
+    public void addAvailability(Availability availability) throws ValidationException {
         Validator.validateBookings(availability, availabilities, this);
         availabilities.add(availability);
     }

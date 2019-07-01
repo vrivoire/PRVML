@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
+import javax.validation.ValidationException;
 import javax.validation.ValidatorFactory;
 import javax.validation.constraints.NotNull;
 
@@ -20,17 +21,21 @@ public class Validator {
 
     private static final Logger LOG = LogManager.getLogger(Validator.class);
 
-    public static void validateBookings(@NotNull Booking booking, @NotNull List<?> bookings, @NotNull Object caller) throws Exception {
+    public static void validateBookings(@NotNull Booking booking, @NotNull List<?> bookings, @NotNull Object caller) throws ValidationException {
         if (bookings.contains(booking)) {
-            throw new Exception("The time slot is already taken for: " + booking + " and " + caller);
+            LOG.error("The time slot is already taken for: " + booking + " and " + caller);
+            throw new ValidationException("The time slot is already taken");
         }
-        for (Booking booking1 : (List<Booking>) bookings) {
+        List<Booking> reservations = (List<Booking>) bookings;
+        reservations.stream().forEach((booking1) -> {
             if (isOverLaped(booking, booking1)) {
-                throw new Exception("There is an overlap time slot for: " + booking + " and " + caller);
+                LOG.error("There is an overlap time slot for: " + booking + " and " + caller);
+                throw new ValidationException("There is an overlap time slot ");
             }
-        }
+        });
         if (isInThePast(booking)) {
-            throw new Exception("The time slot is in the past: " + booking);
+            LOG.error("The time slot is in the past: " + booking);
+            throw new ValidationException("The time slot is in the past");
         }
     }
 

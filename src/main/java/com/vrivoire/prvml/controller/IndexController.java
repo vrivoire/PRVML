@@ -9,7 +9,6 @@ import com.vrivoire.prvml.service.ProfessionalService;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -71,7 +70,7 @@ public class IndexController {
         return ResponseEntity.ok(availabilities);
     }
 
-    @RequestMapping(value = "/bookAppointment", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/bookAppointment", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Object> bookAppointment(
             @RequestParam(value = "availabilityId", required = true) Long availabilityId,
             @RequestParam(value = "professionalId", required = true) Long professionalId,
@@ -82,13 +81,12 @@ public class IndexController {
                 LOG.info("Appointment created for patient id: " + patientId);
                 return ResponseEntity.ok("Appointment created");
             } else {
-                LOG.error(set);
-                return ResponseEntity.of(Optional.of(set));
+                LOG.error("Could not add an appointement" + set);
+                return ResponseEntity.badRequest().body(set);
             }
         } catch (Exception ex) {
             LOG.error("Could not add an appointement", ex);
-            return ResponseEntity.ok(ex.getMessage());
+            return ResponseEntity.badRequest().body(ex.getMessage());
         }
-
     }
 }

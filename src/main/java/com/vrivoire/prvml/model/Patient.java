@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.ValidationException;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -81,7 +82,7 @@ public class Patient implements Comparable<Patient>, Serializable {
         this.appointments = appointments;
     }
 
-    public void addAppointment(Appointment appointment) throws Exception {
+    public void addAppointment(Appointment appointment) throws ValidationException {
         Validator.validateBookings(appointment, appointments, this);
         appointments.add(appointment);
     }
