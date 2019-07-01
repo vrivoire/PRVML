@@ -27,6 +27,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+/**
+ *
+ * @author Vincent
+ */
 @SpringBootApplication
 @EnableJpaRepositories
 public class Main {
@@ -39,6 +43,10 @@ public class Main {
     private static AvailabilityRepository availabilityRepository = null;
     private static BookingService bookingService = null;
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         try {
             ConfigurableApplicationContext context = SpringApplication.run(Main.class, args);
@@ -54,6 +62,11 @@ public class Main {
         }
     }
 
+    /**
+     *
+     * @param context
+     * @throws Exception
+     */
     public static void init(ConfigurableApplicationContext context) throws Exception {
 
         try {
@@ -113,22 +126,42 @@ public class Main {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public static ClinicRepository getClinicRepository() {
         return clinicRepository;
     }
 
+    /**
+     *
+     * @return
+     */
     public static ProfessionalRepository getProfessionalRepository() {
         return professionalRepository;
     }
 
+    /**
+     *
+     * @return
+     */
     public static PatientRepository getPatientRepository() {
         return patientRepository;
     }
 
+    /**
+     *
+     * @return
+     */
     public static AppointmentRepository getAppointmentRepository() {
         return appointmentRepository;
     }
 
+    /**
+     *
+     * @return
+     */
     public static AvailabilityRepository getAvailabilityRepository() {
         return availabilityRepository;
     }

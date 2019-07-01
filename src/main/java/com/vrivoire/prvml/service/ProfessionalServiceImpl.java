@@ -12,6 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+/**
+ *
+ * @author Vincent
+ */
 @Service
 public class ProfessionalServiceImpl implements ProfessionalService {
 
@@ -20,6 +24,10 @@ public class ProfessionalServiceImpl implements ProfessionalService {
     @Autowired
     private AppointmentRepository appointmentRepository;
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<Professional> loadAll() {
         Sort.Order order = new Sort.Order(Sort.Direction.ASC, "uniqueId").ignoreCase();
@@ -29,18 +37,33 @@ public class ProfessionalServiceImpl implements ProfessionalService {
         return professionalRepository.findAll(sort);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Override
     public Professional getProfessional(Long id) {
         Optional<Professional> optional = professionalRepository.findById(id);
         return optional.isPresent() ? optional.get() : null;
     }
 
+    /**
+     *
+     * @param uniqueId
+     * @return
+     */
     @Override
     public Professional findByUniqueId(String uniqueId) {
         Professional professional = professionalRepository.findByUniqueId(uniqueId);
         return professional;
     }
 
+    /**
+     *
+     * @param appointementId
+     * @return
+     */
     @Override
     public Professional getProfessionalForAppointment(Long appointementId) {
         Appointment appointment = appointmentRepository.findById(appointementId).get();

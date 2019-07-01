@@ -32,34 +32,62 @@ public class Availability extends BookingBase {
     @Column(name = "END_TIME")
     private Timestamp endTime;
 
+    /**
+     *
+     */
     public Availability() {
     }
 
+    /**
+     *
+     * @param startTime
+     * @param endTime
+     */
     public Availability(Timestamp startTime, Timestamp endTime) {
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Timestamp getStartTime() {
         return startTime;
     }
 
+    /**
+     *
+     * @param startTime
+     */
     @Override
     public void setStartTime(Timestamp startTime) {
         this.startTime = startTime;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Timestamp getEndTime() {
         return endTime;
     }
 
+    /**
+     *
+     * @param endTime
+     */
     @Override
     public void setEndTime(Timestamp endTime) {
         this.endTime = endTime;

@@ -38,9 +38,15 @@ public class BookingServiceTest {
     @Autowired
     BookingService bookingService;
 
+    /**
+     *
+     */
     public BookingServiceTest() {
     }
 
+    /**
+     *
+     */
     @Before
     public void setUp() {
         clinic = new Clinic("Le gros bobo");
@@ -49,6 +55,9 @@ public class BookingServiceTest {
         availability = new Availability(Timestamp.valueOf("2020-07-11 09:00:00"), Timestamp.valueOf("2020-07-11 09:30:00"));
     }
 
+    /**
+     *
+     */
     @Test
     public void bookAppointment1() {
         try {
@@ -67,6 +76,9 @@ public class BookingServiceTest {
         Assert.assertTrue(set.isEmpty());
     }
 
+    /**
+     *
+     */
     @Test
     public void bookAppointment2() {
         try {

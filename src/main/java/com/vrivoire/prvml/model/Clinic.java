@@ -33,21 +33,40 @@ public class Clinic implements Comparable<Clinic>, Serializable {
     @Column(name = "NAME", unique = true)
     private String name;
 
+    /**
+     *
+     */
     public Clinic() {
     }
 
+    /**
+     *
+     * @param name
+     */
     public Clinic(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }

@@ -24,6 +24,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ *
+ * @author Vincent
+ */
 @Controller
 public class IndexController {
 
@@ -38,23 +42,42 @@ public class IndexController {
     @Autowired
     BookingService bookingService;
 
+    /**
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping("/")
     public String showIndex(Model model) {
         return "index";
     }
 
+    /**
+     *
+     * @param patientUniqueId
+     * @return
+     */
     @RequestMapping(value = "/getPatient", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Patient> getPatient(@RequestParam(value = "patientUniqueId", required = true) String patientUniqueId) {
         Patient patient = patientService.findByUniqueId(patientUniqueId);
         return ResponseEntity.ok(patient);
     }
 
+    /**
+     *
+     * @param appointementId
+     * @return
+     */
     @RequestMapping(value = "/getProfessionalForAppointment", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Professional> getProfessionalForAppointment(@RequestParam(value = "appointementId", required = true) Long appointementId) {
         Professional professional = professionalService.getProfessionalForAppointment(appointementId);
         return ResponseEntity.ok(professional);
     }
 
+    /**
+     *
+     * @return
+     */
     @RequestMapping(value = "/getProfessionals", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<List<Professional>> getProfessionals() {
         List<Professional> professionals = professionalService.loadAll();
@@ -62,6 +85,11 @@ public class IndexController {
         return ResponseEntity.ok(professionals);
     }
 
+    /**
+     *
+     * @param professionalId
+     * @return
+     */
     @RequestMapping(value = "/getAvailabilities", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<List<Availability>> getAvailabilities(@RequestParam(value = "professionalId", required = true) Long professionalId) {
         Professional professional = professionalService.getProfessional(professionalId);
@@ -70,6 +98,13 @@ public class IndexController {
         return ResponseEntity.ok(availabilities);
     }
 
+    /**
+     *
+     * @param availabilityId
+     * @param professionalId
+     * @param patientId
+     * @return
+     */
     @RequestMapping(value = "/bookAppointment", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Object> bookAppointment(
             @RequestParam(value = "availabilityId", required = true) Long availabilityId,

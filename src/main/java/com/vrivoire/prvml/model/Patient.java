@@ -59,6 +59,12 @@ public class Patient implements Comparable<Patient>, Serializable {
     @ManyToOne
     private Clinic clinic;
 
+    /**
+     *
+     * @param firstName
+     * @param lastName
+     * @param clinic
+     */
     public Patient(String firstName, String lastName, Clinic clinic) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -66,49 +72,93 @@ public class Patient implements Comparable<Patient>, Serializable {
         generateUniqueId();
     }
 
+    /**
+     *
+     */
     public Patient() {
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDisplayName() {
         return firstName + " " + lastName;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Appointment> getAppointments() {
         Collections.sort(appointments);
         return appointments;
     }
 
+    /**
+     *
+     * @param appointments
+     */
     public void setAppointments(List<Appointment> appointments) {
         this.appointments = appointments;
     }
 
+    /**
+     *
+     * @param appointment
+     * @throws ValidationException
+     */
     public void addAppointment(Appointment appointment) throws ValidationException {
         Validator.validateBookings(appointment, appointments, this);
         appointments.add(appointment);
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     *
+     * @param firstName
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
         generateUniqueId();
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     *
+     * @param lastName
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
         generateUniqueId();
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUniqId() {
         return uniqueId;
     }

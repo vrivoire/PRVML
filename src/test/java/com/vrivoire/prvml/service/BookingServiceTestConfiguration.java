@@ -14,6 +14,10 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 public class BookingServiceTestConfiguration {
 
+    /**
+     *
+     * @return
+     */
     @Bean
     @Primary
     public BookingService bookingService() {

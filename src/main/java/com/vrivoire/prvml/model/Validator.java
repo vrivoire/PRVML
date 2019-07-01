@@ -21,6 +21,13 @@ public class Validator {
 
     private static final Logger LOG = LogManager.getLogger(Validator.class);
 
+    /**
+     *
+     * @param booking
+     * @param bookings
+     * @param caller
+     * @throws ValidationException
+     */
     public static void validateBookings(@NotNull Booking booking, @NotNull List<?> bookings, @NotNull Object caller) throws ValidationException {
         if (bookings.contains(booking)) {
             LOG.error("The time slot is already taken for: " + booking + " and " + caller);
@@ -39,6 +46,12 @@ public class Validator {
         }
     }
 
+    /**
+     *
+     * @param <T>
+     * @param object
+     * @return
+     */
     public static <T> Set<ConstraintViolation<T>> validate(T object) {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         javax.validation.Validator validator = factory.getValidator();

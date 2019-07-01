@@ -10,12 +10,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+/**
+ *
+ * @author Vincent
+ */
 @Service
 public class PatientServiceImpl implements PatientService {
 
     @Autowired
     private PatientRepository patientRepository;
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<Patient> loadAll() {
         Sort.Order order = new Sort.Order(Sort.Direction.ASC, "uniqueId").ignoreCase();
@@ -25,12 +33,22 @@ public class PatientServiceImpl implements PatientService {
         return patientRepository.findAll(sort);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Override
     public Patient getPatient(Long id) {
         Optional<Patient> optional = patientRepository.findById(id);
         return optional.isPresent() ? optional.get() : null;
     }
 
+    /**
+     *
+     * @param uniqueId
+     * @return
+     */
     @Override
     public Patient findByUniqueId(String uniqueId) {
         Patient patient = patientRepository.findByUniqueId(uniqueId);

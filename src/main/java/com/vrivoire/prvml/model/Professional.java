@@ -61,6 +61,12 @@ public class Professional implements Comparable<Professional>, Serializable {
     @OneToMany
     private List<Availability> availabilities = new ArrayList<>();
 
+    /**
+     *
+     * @param firstName
+     * @param lastName
+     * @param clinic
+     */
     public Professional(String firstName, String lastName, Clinic clinic) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -68,75 +74,144 @@ public class Professional implements Comparable<Professional>, Serializable {
         generateUniqueId();
     }
 
+    /**
+     *
+     */
     public Professional() {
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDisplayName() {
         return firstName + " " + lastName;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUniqueId() {
         return uniqueId;
     }
 
+    /**
+     *
+     * @return
+     */
     public Clinic getClinic() {
         return clinic;
     }
 
+    /**
+     *
+     * @param clinic
+     */
     public void setClinic(Clinic clinic) {
         this.clinic = clinic;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Appointment> getAppointments() {
         Collections.sort(appointments);
         return appointments;
     }
 
+    /**
+     *
+     * @param appointments
+     */
     public void setAppointments(List<Appointment> appointments) {
         this.appointments = appointments;
     }
 
+    /**
+     *
+     * @param appointment
+     * @throws ValidationException
+     */
     public void addAppointment(Appointment appointment) throws ValidationException {
         Validator.validateBookings(appointment, appointments, this);
         appointments.add(appointment);
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Availability> getAvailabilities() {
         Collections.sort(availabilities);
         return availabilities;
     }
 
+    /**
+     *
+     * @param availabilities
+     */
     public void setAvailabilities(List<Availability> availabilities) {
         this.availabilities = availabilities;
     }
 
+    /**
+     *
+     * @param availability
+     * @throws ValidationException
+     */
     public void addAvailability(Availability availability) throws ValidationException {
         Validator.validateBookings(availability, availabilities, this);
         availabilities.add(availability);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     *
+     * @param firstName
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
         generateUniqueId();
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     *
+     * @param lastName
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
         generateUniqueId();
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUniqId() {
         return uniqueId;
     }

@@ -29,9 +29,15 @@ public class ValidatorTest {
     private Appointment appointment3;
     private Appointment appointment4;
 
+    /**
+     *
+     */
     public ValidatorTest() {
     }
 
+    /**
+     *
+     */
     @Before
     public void setUp() {
         clinic = new Clinic("Le gros bobo");
@@ -42,6 +48,9 @@ public class ValidatorTest {
         appointment4 = new Appointment(Timestamp.valueOf("2018-07-11 09:15:00"), Timestamp.valueOf("2018-07-11 09:30:00"));
     }
 
+    /**
+     *
+     */
     @Test
     public void validatePast() {
 
@@ -56,6 +65,9 @@ public class ValidatorTest {
         Assert.fail();
     }
 
+    /**
+     *
+     */
     @Test
     public void validateOverlap1() {
 
@@ -71,6 +83,9 @@ public class ValidatorTest {
         Assert.fail();
     }
 
+    /**
+     *
+     */
     @Test
     public void validateOverlap2() {
         try {
@@ -85,6 +100,9 @@ public class ValidatorTest {
         Assert.assertNull(null);
     }
 
+    /**
+     *
+     */
     @Test
     public void validateValidate1() {
         Set<ConstraintViolation<Patient>> validate = Validator.validate(patient);
@@ -92,6 +110,9 @@ public class ValidatorTest {
         Assert.assertTrue(validate.isEmpty());
     }
 
+    /**
+     *
+     */
     @Test
     public void validateValidate2() {
         Set<ConstraintViolation<Patient>> validate = Validator.validate(new Patient("Jean", "Robin", null));

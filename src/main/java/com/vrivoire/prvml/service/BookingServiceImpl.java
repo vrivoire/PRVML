@@ -41,6 +41,14 @@ public class BookingServiceImpl implements BookingService {
     @Autowired
     AvailabilityRepository availabilityRepository;
 
+    /**
+     *
+     * @param availability
+     * @param professional
+     * @param patient
+     * @return
+     * @throws Exception
+     */
     @Override
     @Transactional
     public Set<ConstraintViolation<Object>> bookAppointment(Availability availability, Professional professional, Patient patient) throws Exception {
@@ -69,6 +77,14 @@ public class BookingServiceImpl implements BookingService {
 
     }
 
+    /**
+     *
+     * @param availabilityId
+     * @param professionalId
+     * @param patientId
+     * @return
+     * @throws Exception
+     */
     @Override
     @Transactional
     public Set<ConstraintViolation<Object>> bookAppointment(Long availabilityId, Long professionalId, Long patientId) throws Exception {
