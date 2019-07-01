@@ -49,7 +49,7 @@ public class Main {
             LOG.info("H2 console URL: http://127.0.0.1:8080/h2-console  JDBC URL: jdbc:h2:mem:prvml or jdbc:h2:./database/prvml.db ((user: sa)");
             LOG.info("---------------------------------------------");
         } catch (Exception ex) {
-            LOG.error(ex.getMessage(), ex);
+            LOG.fatal(ex.getMessage(), ex);
             System.exit(-1);
         }
     }
@@ -102,7 +102,7 @@ public class Main {
             professional2.addAvailability(availability);
             professionalRepository.saveAndFlush(professional2);
             Set<ConstraintViolation<Object>> set = bookingService.bookAppointment(availability.getId(), professional2.getId(), patient.getId());
-            if (set == null || set.isEmpty()) {
+            if (set != null && !set.isEmpty()) {
                 LOG.info(set);
             }
 
