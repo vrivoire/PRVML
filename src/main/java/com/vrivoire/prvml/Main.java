@@ -52,7 +52,7 @@ public class Main {
             ConfigurableApplicationContext context = SpringApplication.run(Main.class, args);
             init(context);
 
-            LOG.info("Server started. ");
+            LOG.info("Server started.");
             LOG.info("You may go to the following URL: http://127.0.0.1:8080");
             LOG.info("H2 console URL: http://127.0.0.1:8080/h2-console  JDBC URL: jdbc:h2:mem:prvml or jdbc:h2:./database/prvml.db ((user: sa)");
             LOG.info("---------------------------------------------");
