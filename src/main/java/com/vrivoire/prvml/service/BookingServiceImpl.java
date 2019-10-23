@@ -4,11 +4,11 @@ import com.vrivoire.prvml.model.Appointment;
 import com.vrivoire.prvml.model.Availability;
 import com.vrivoire.prvml.model.Patient;
 import com.vrivoire.prvml.model.Professional;
+import com.vrivoire.prvml.model.Validator;
 import com.vrivoire.prvml.repositories.AppointmentRepository;
 import com.vrivoire.prvml.repositories.AvailabilityRepository;
 import com.vrivoire.prvml.repositories.PatientRepository;
 import com.vrivoire.prvml.repositories.ProfessionalRepository;
-import com.vrivoire.prvml.model.Validator;
 
 import java.util.Set;
 
@@ -17,6 +17,7 @@ import javax.validation.ConstraintViolation;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

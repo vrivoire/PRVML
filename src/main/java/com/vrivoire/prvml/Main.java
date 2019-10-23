@@ -20,6 +20,7 @@ import javax.validation.ConstraintViolation;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -167,8 +168,9 @@ public class Main {
     }
 
     private static void showData(Clinic clinic, Professional professional1, Professional professional2, Patient patient) {
-        List<Availability> availabilities = availabilityRepository.findAll(new Sort(Direction.DESC, "startTime"));
-        List<Appointment> appointments = appointmentRepository.findAll(new Sort(Direction.DESC, "startTime"));
+        Sort sort = Sort.by(Direction.DESC, "startTime");
+        List<Availability> availabilities = availabilityRepository.findAll(sort);
+        List<Appointment> appointments = appointmentRepository.findAll(sort);
         LOG.info("---------------------------------------------");
         LOG.info(clinic);
         LOG.info(professional1);
