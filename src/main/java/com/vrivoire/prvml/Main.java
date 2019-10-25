@@ -49,6 +49,7 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
+        LOG.info("Java version: " + System.getProperty("java.runtime.version"));
         try {
             ConfigurableApplicationContext context = SpringApplication.run(Main.class, args);
             init(context);
