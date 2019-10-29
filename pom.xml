@@ -6,10 +6,11 @@
     <artifactId>PRVML</artifactId>
     <name>PRVML</name>
     <version>1.0</version>
-    <description>Prise de Rendez-Vous Médical en Ligne.</description>
+    <description>Prise de Rendez-Vous Médical en Ligne. (Full stack)</description>
     <developers>
         <developer>
             <id>vrivoire</id>
+            <timezone>UTC-5</timezone>
             <name>Vincent Rivoire</name>
             <email>rivoire.vincent@gmail.com</email>
         </developer>
@@ -111,8 +112,8 @@
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
-                    <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
                     <showDeprecation>true</showDeprecation>
+                    <arg>-Xlint:unchecked</arg>
                 </configuration>
             </plugin>
             <plugin>
