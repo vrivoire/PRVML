@@ -10,7 +10,7 @@
         </layout>
     </appender>
 
-    <logger name="com.vrivoire.imdbsearch.console" additivity="false">
+    <logger name="com.vrivoire.prvml.console" additivity="false">
         <level value="INFO" />
         <appender-ref ref="console" />
     </logger>
