@@ -2,10 +2,9 @@ var patientUniqueId = 'VincentRivoire'; // Hard coded because there is no login.
 var patient;
 
 $(document).ready(function () {
-    $('input:text').button().addClass('my-textfield');
-    $("#pages").spinner();
-    $("#publication").spinner();
-    $("#files").selectmenu();
+
+    $("#sel_professional").selectmenu();
+    $("#sel_availabilities").selectmenu();
     $('#table').basictable();
     $('#table-breakpoint').basictable({
         breakpoint: 768

@@ -10,9 +10,15 @@
         <link rel="stylesheet" href="basictable-master/basictable.css"/>
         <link rel="stylesheet" href="basictable-master/demo/css/style.css"/>
         <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+        <style>
+            form label {
+                display: inline-block;
+                width: 150px;
+            }
+        </style>
 
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="  crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="  crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" crossorigin="anonymous"></script>
         <script type="text/javascript" src="basictable-master/jquery.basictable.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/additional-methods.min.js"></script>
@@ -21,26 +27,27 @@
     <body>
         <div id="page">
             <h1>Prise de Rendez-Vous Médical en Ligne.</h1>
-            <h3 id='patientName'>patient Name</h3>
+            <h3 id='patientName'>Non du patient</h3>
             <button class="ui-button ui-widget ui-corner-all" id='add-button'>Prendre un rendez-vous</button>
             <br/>
             <div id="feedback"></div>
             <br/>
             <form id="add_form" method="post" hidden="">
 
-                <label for="sel_professional">Professional</label>
-                <select id="sel_professional">
+                <label for="sel_professional" class="ui-widget" id="cancel-button">Professionel</label>
+                <select id="sel_professional" name='sel_professional'>
                     <option value="0">- Sélectionner -</option>
                 </select>
                 <br/><br/>
-                <label for="sel_availabilities">Disponibilitées</label>
-                <select id="sel_availabilities">
+                <label for="sel_availabilities" class="ui-widget">Disponibilitées</label>
+                <select id="sel_availabilities" name='sel_availabilities'>
                     <option value="0">- Sélectionner -</option>
                 </select>
                 <br/><br/>
 
                 <button class="ui-button ui-widget ui-corner-all" id='cancel-button' type="button" value="Cancel">Annuler</button>
                 <button class="ui-button ui-widget ui-corner-all" id='submit' type="submit" value="Submit">Ajouter</button>
+
             </form>
 
             <table id="table">
@@ -52,7 +59,6 @@
                     </tr>
                 </thead>
                 <tbody>
-
                 </tbody>
             </table>
         </div>
