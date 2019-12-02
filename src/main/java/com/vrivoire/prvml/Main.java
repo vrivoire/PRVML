@@ -37,12 +37,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class Main {
 
     private static final Logger LOG = LogManager.getLogger(Main.class);
-    private static ClinicRepository clinicRepository = null;
-    private static ProfessionalRepository professionalRepository = null;
-    private static PatientRepository patientRepository = null;
-    private static AppointmentRepository appointmentRepository = null;
-    private static AvailabilityRepository availabilityRepository = null;
-    private static BookingService bookingService = null;
 
     /**
      *
@@ -72,15 +66,15 @@ public class Main {
     public static void init(ConfigurableApplicationContext context) throws Exception {
 
         try {
-            clinicRepository = context.getBean(ClinicRepository.class);
+            ClinicRepository clinicRepository = context.getBean(ClinicRepository.class);
             Clinic clinic = new Clinic("Clinique Auteuil");
             clinicRepository.saveAndFlush(clinic);
 
-            professionalRepository = context.getBean(ProfessionalRepository.class);
+            ProfessionalRepository professionalRepository = context.getBean(ProfessionalRepository.class);
             Professional professional1 = new Professional("Lucie", "Bazinet", clinic);
             Professional professional2 = new Professional("Claude", "Meunier", clinic);
 
-            availabilityRepository = context.getBean(AvailabilityRepository.class);
+            AvailabilityRepository availabilityRepository = context.getBean(AvailabilityRepository.class);
             Availability availability = new Availability(Timestamp.valueOf("2020-09-01 09:00:00"), Timestamp.valueOf("2020-09-01 09:30:00"));
             availabilityRepository.saveAndFlush(availability);
             professional1.addAvailability(availability);
@@ -99,11 +93,11 @@ public class Main {
             professional2.addAvailability(availability);
             professionalRepository.saveAndFlush(professional2);
 
-            patientRepository = context.getBean(PatientRepository.class);
+            PatientRepository patientRepository = context.getBean(PatientRepository.class);
             Patient patient = new Patient("Vincent", "Rivoire", clinic);
             patientRepository.saveAndFlush(patient);
 
-            appointmentRepository = context.getBean(AppointmentRepository.class);
+            AppointmentRepository appointmentRepository = context.getBean(AppointmentRepository.class);
             Appointment appointment = new Appointment(Timestamp.valueOf("2020-09-10 09:00:00"), Timestamp.valueOf("2020-09-10 09:30:00"));
             appointmentRepository.saveAndFlush(appointment);
             patient.addAppointment(appointment);
@@ -111,7 +105,7 @@ public class Main {
             professional1.addAppointment(appointment);
             professionalRepository.saveAndFlush(professional1);
 
-            bookingService = context.getBean(BookingService.class);
+            BookingService bookingService = context.getBean(BookingService.class);
             availability = new Availability(Timestamp.valueOf("2020-07-11 09:00:00"), Timestamp.valueOf("2020-07-11 09:30:00"));
             availabilityRepository.saveAndFlush(availability);
             professional2.addAvailability(availability);
@@ -121,57 +115,17 @@ public class Main {
                 LOG.info(set);
             }
 
-            showData(clinic, professional1, professional2, patient);
+            showData(context, clinic, professional1, professional2, patient);
         } catch (Exception ex) {
             LOG.error("Failed to create some data.", ex);
             throw ex;
         }
     }
 
-    /**
-     *
-     * @return
-     */
-    public static ClinicRepository getClinicRepository() {
-        return clinicRepository;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public static ProfessionalRepository getProfessionalRepository() {
-        return professionalRepository;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public static PatientRepository getPatientRepository() {
-        return patientRepository;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public static AppointmentRepository getAppointmentRepository() {
-        return appointmentRepository;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public static AvailabilityRepository getAvailabilityRepository() {
-        return availabilityRepository;
-    }
-
-    private static void showData(Clinic clinic, Professional professional1, Professional professional2, Patient patient) {
+    private static void showData(ConfigurableApplicationContext context, Clinic clinic, Professional professional1, Professional professional2, Patient patient) {
         Sort sort = Sort.by(Direction.DESC, "startTime");
-        List<Availability> availabilities = availabilityRepository.findAll(sort);
-        List<Appointment> appointments = appointmentRepository.findAll(sort);
+        List<Availability> availabilities = context.getBean(AvailabilityRepository.class).findAll(sort);
+        List<Appointment> appointments = context.getBean(AppointmentRepository.class).findAll(sort);
         LOG.info("---------------------------------------------");
         LOG.info(clinic);
         LOG.info(professional1);
