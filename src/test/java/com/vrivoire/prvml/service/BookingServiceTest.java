@@ -11,16 +11,13 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 
 /**
  *
@@ -28,71 +25,71 @@ import org.mockito.Mockito;
  */
 @SpringBootTest
 @ActiveProfiles("test")
-@RunWith(SpringJUnit4ClassRunner.class)
+//@ExtendWith(SpringJUnit4ClassRunner.class)
 public class BookingServiceTest {
 
-    private Clinic clinic;
-    private Patient patient;
-    private Professional professional;
-    private Availability availability;
+	private Clinic clinic;
+	private Patient patient;
+	private Professional professional;
+	private Availability availability;
 
-    @Autowired
-    BookingService bookingService;
+	@Autowired
+	BookingService bookingService;
 
-    /**
-     *
-     */
-    public BookingServiceTest() {
-    }
+	/**
+	 *
+	 */
+	public BookingServiceTest() {
+	}
 
-    /**
-     *
-     */
-    @Before
-    public void setUp() {
-        clinic = new Clinic("Le gros bobo");
-        patient = new Patient("Jean", "Robin", clinic);
-        professional = new Professional("Hubert", "Salazard", clinic);
-        availability = new Availability(Timestamp.valueOf("2020-07-11 09:00:00"), Timestamp.valueOf("2020-07-11 09:30:00"));
-    }
+	/**
+	 *
+	 */
+	@BeforeEach
+	public void setUp() {
+		clinic = new Clinic("Le gros bobo");
+		patient = new Patient("Jean", "Robin", clinic);
+		professional = new Professional("Hubert", "Salazard", clinic);
+		availability = new Availability(Timestamp.valueOf("2020-07-11 09:00:00"), Timestamp.valueOf("2020-07-11 09:30:00"));
+	}
 
-    /**
-     *
-     */
-    @Test
-    public void bookAppointment1() {
-        try {
-            Mockito.when(bookingService.bookAppointment(availability, professional, patient)).thenReturn(new HashSet<>());
-        } catch (Exception ex) {
-        }
+	/**
+	 *
+	 */
+	@Test
+	public void bookAppointment1() {
+		try {
+			Mockito.when(bookingService.bookAppointment(availability, professional, patient)).thenReturn(new HashSet<>());
+		} catch (Exception ex) {
+		}
 
-        Set<ConstraintViolation<Object>> set = null;
-        try {
-            set = bookingService.bookAppointment(availability, professional, patient);
-        } catch (Exception ex) {
-            Assert.fail(ex.getMessage());
-        }
+		Set<ConstraintViolation<Object>> set = null;
+		try {
+			set = bookingService.bookAppointment(availability, professional, patient);
+		} catch (Exception ex) {
+			Assertions.fail(ex.getMessage());
+		}
 
-        Assert.assertNotNull(set);
-        Assert.assertTrue(set.isEmpty());
-    }
+		Assertions.assertNotNull(set);
+		Assertions.assertTrue(set.isEmpty());
+	}
 
-    /**
-     *
-     */
-    @Test
-    public void bookAppointment2() {
-        try {
-            Mockito.when(bookingService.bookAppointment(availability, null, patient)).thenThrow(new Exception());
-        } catch (Exception ex) {
-        }
+	/**
+	 *
+	 */
+	@Test
+	public void bookAppointment2() {
+		try {
+			Mockito.when(bookingService.bookAppointment(availability, null, patient)).thenThrow(new Exception());
+		} catch (Exception ex) {
+		}
 
-        Set<ConstraintViolation<Object>> set = null;
-        try {
-            set = bookingService.bookAppointment(availability, null, patient);
-        } catch (Exception ex) {
-        }
+		Set<ConstraintViolation<Object>> set = null;
+		try {
+			set = bookingService.bookAppointment(availability, null, patient);
+		} catch (Exception ex) {
+		}
 
-        Assert.assertNull(set);
-    }
+		Assertions.assertNull(set);
+	}
 }
